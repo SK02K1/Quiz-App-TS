@@ -6,6 +6,7 @@ import { CategoryCard, Spinner } from 'components';
 
 export const Home = () => {
   const [showLoader, setShowLoader] = useState(true);
+  const [error, setError] = useState<null | boolean>(null);
   const { categories, setCategories } = useCategories();
 
   const categoriesListing = categories?.map((categoryInfo) => {
@@ -21,6 +22,7 @@ export const Home = () => {
         }
       } catch (error) {
         console.error(error);
+        setError(true);
       } finally {
         setShowLoader(false);
       }
@@ -31,6 +33,11 @@ export const Home = () => {
     <div>
       <h1 className='text-center text-xl m-md-tb'>Featured Categories</h1>
       <Spinner showLoader={showLoader} />
+      {error && (
+        <p className='text-center text-base'>
+          Failed in getting the categories
+        </p>
+      )}
       {categories && (
         <div className='grid-container auto'>{categoriesListing}</div>
       )}
