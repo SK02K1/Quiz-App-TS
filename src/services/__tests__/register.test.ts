@@ -7,7 +7,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('register service', () => {
   const data = {
-    username: 'sk02k1',
+    name: 'sk02k1',
     email: 'ksourabh458@gmail.com',
     password: '1234',
   };
@@ -20,7 +20,7 @@ describe('register service', () => {
           success: true,
           message: 'User successfully registered',
           user: {
-            username: 'sk02k1',
+            name: 'sk02k1',
             email: 'ksourabh458@gmail.com',
             token: 'xxxx',
           },
