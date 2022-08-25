@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
-import { CategoriesProvider, ThemeProvider } from 'contexts';
+import { AuthProvider, CategoriesProvider, ThemeProvider } from 'contexts';
 
 axios.defaults.baseURL = 'https://hlbrv5.sse.codesandbox.io/';
 
@@ -13,9 +13,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <ThemeProvider>
-      <CategoriesProvider>
-        <App />
-      </CategoriesProvider>
+      <AuthProvider>
+        <CategoriesProvider>
+          <App />
+        </CategoriesProvider>
+      </AuthProvider>
     </ThemeProvider>
   </BrowserRouter>
 );

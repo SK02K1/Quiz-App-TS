@@ -4,6 +4,10 @@ export type UserCredentials = {
   password: string;
 };
 
+export type SignupFormFieldType = {
+  [key: string]: string;
+};
+
 export type User = {
   name: string;
   email: string;

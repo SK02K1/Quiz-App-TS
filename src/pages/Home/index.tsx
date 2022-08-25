@@ -5,7 +5,7 @@ import { getAllCategories } from 'services';
 import { CategoryCard, Spinner } from 'components';
 
 export const Home = () => {
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState<null | boolean>(null);
   const { categories, setCategories } = useCategories();
 
@@ -14,20 +14,23 @@ export const Home = () => {
   });
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data, status } = await getAllCategories();
-        if (status === 200) {
-          setCategories(data.categories);
+    if (!categories) {
+      (async () => {
+        try {
+          setShowLoader(true);
+          const { data, status } = await getAllCategories();
+          if (status === 200) {
+            setCategories(data.categories);
+          }
+        } catch (error) {
+          console.error(error);
+          setError(true);
+        } finally {
+          setShowLoader(false);
         }
-      } catch (error) {
-        console.error(error);
-        setError(true);
-      } finally {
-        setShowLoader(false);
-      }
-    })();
-  }, [setCategories]);
+      })();
+    }
+  }, [categories, setCategories]);
 
   return (
     <div>
