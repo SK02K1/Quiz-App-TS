@@ -4,7 +4,7 @@ export type UserCredentials = {
   password: string;
 };
 
-export type SignupFormFieldType = {
+export type FormFieldType = {
   [key: string]: string;
 };
 
