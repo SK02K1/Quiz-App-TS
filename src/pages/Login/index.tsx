@@ -1,22 +1,25 @@
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
 import { SyntheticEvent, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { loginFormFields, testCredentials } from 'utils';
-import { FormFieldType } from 'types';
+import { FormFieldType, LocationProps } from 'types';
 import { Spinner } from 'components';
 import { useAuth } from 'contexts';
 import { login } from 'services';
 
 export const Login = () => {
+  const { user, setUser } = useAuth();
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [loginFormData, setLoginFormData] = useState<FormFieldType>({
     email: '',
     password: '',
   });
 
-  const { user, setUser } = useAuth();
   const { email, password } = loginFormData;
+
+  const location = useLocation() as LocationProps;
+  const from = location.state?.from?.pathname || '/';
 
   const inputChangeHandler = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
@@ -54,7 +57,7 @@ export const Login = () => {
 
   return (
     <div>
-      {user && <Navigate to='/' replace={true} />}
+      {user && <Navigate to={from} replace={true} />}
       <form onSubmit={loginHandler} className='form'>
         <h1 className='text-xl text-center m-xs-tb'>Login</h1>
         {loginFormFields.map((fieldInfo) => {

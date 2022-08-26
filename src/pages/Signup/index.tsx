@@ -1,8 +1,8 @@
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
 import { SyntheticEvent, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { FormFieldType } from 'types';
+import { Link, Navigate, useLocation } from 'react-router-dom';
+import { FormFieldType, LocationProps } from 'types';
 import { signupFormFields } from 'utils';
 import { Spinner } from 'components';
 import { register } from 'services';
@@ -18,6 +18,9 @@ export const Signup = () => {
   });
 
   const { name, email, password } = signupFormData;
+
+  const location = useLocation() as LocationProps;
+  const from = location.state?.from?.pathname || '/';
 
   const inputChangeHandler = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
@@ -51,7 +54,7 @@ export const Signup = () => {
 
   return (
     <div>
-      {user && <Navigate to={'/'} replace={true} />}
+      {user && <Navigate to={from} replace={true} />}
       <form onSubmit={signupHandler} className='form'>
         <h1 className='text-xl text-center m-xs-tb'>Signup</h1>
         {signupFormFields.map((fieldInfo) => {
