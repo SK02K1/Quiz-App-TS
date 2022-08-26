@@ -16,5 +16,5 @@ export type User = {
 
 export type AuthContextType = {
   user: User | null;
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
 };
